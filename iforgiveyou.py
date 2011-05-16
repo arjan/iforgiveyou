@@ -17,10 +17,7 @@ from sparked import application
 from sparked.graphics import stage
 
 
-
-
 class Machine(protocol.Protocol):
-
     """
     Communication with The Machine.
 
