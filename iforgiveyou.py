@@ -1,3 +1,8 @@
+#
+# (c) 2011 Arjan Scherpenisse <arjan@scherpenisse.net>
+# I Forgive You by Esther Verhamme
+#
+
 import clutter
 import gst
 import cluttergst
@@ -15,6 +20,18 @@ from sparked.graphics import stage
 
 
 class Machine(protocol.Protocol):
+
+    """
+    Communication with The Machine.
+
+    The Machine consists of a Matrix Orbital VK204-24 USB controller
+    which has its GPO ports wired to a RM5 coin acceptor. When the GPO
+    ports are high, the machine accepts coins. When a coin is
+    accepted, the keypad controller registers a keypress, 0x4B. The
+    keypad controller is also wired to another button (0x46) which
+    does not do a lot, but is used here to display a "no refund" message.
+    """
+
     def __init__(self, app):
         self.app = app
 
@@ -47,6 +64,11 @@ class Machine(protocol.Protocol):
 
 
 class Stage(stage.Stage):
+    """
+    The graphic display. Has a movie player which plays movies. One
+    movie is always fixed,"intro.mov"; the other movie which is played after the intro is a random choice
+    from the data folder.
+    """
 
     def __init__(self, app):
         stage.Stage.__init__(self, app)
