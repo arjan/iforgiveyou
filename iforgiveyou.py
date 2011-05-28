@@ -102,6 +102,7 @@ class Stage(stage.Stage):
         print "playing", f
         self.video.set_uri("file://" + f)
         self.video.set_playing(True)
+        stage.positionInBox(self.video, self)
 
 
 
