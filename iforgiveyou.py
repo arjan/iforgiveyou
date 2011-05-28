@@ -81,18 +81,11 @@ class Stage(stage.Stage):
         bus.connect("message", onPlayerMessage)
         self.video.set_size(self.get_width(), self.get_height())
         self.set_color(clutter.color_from_string("#000000"))
+        self.video.hide()
 
 
     def addMonitors(self):
         pass
-
-
-    def enter_start(self):
-        self.video.hide()
-
-
-    def exit_start(self):
-        self.video.show()
 
 
     def enter_play_movie(self):
@@ -103,6 +96,11 @@ class Stage(stage.Stage):
         self.video.set_uri("file://" + f)
         self.video.set_playing(True)
         stage.positionInBox(self.video, self)
+        self.video.show()
+
+
+    def exit_play_movie(self):
+        self.video.hide()
 
 
 
