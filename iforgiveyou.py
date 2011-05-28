@@ -42,7 +42,7 @@ class Machine(protocol.Protocol):
 
     def startScreen(self):
         self.transport.write(chr(254)+chr(88))
-        self.transport.write("\n * INSERT 1 EURO *")
+        self.transport.write("\n * INSERT 50 CENT *")
 
 
     def sorry(self):
