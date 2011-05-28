@@ -74,10 +74,7 @@ class Stage(stage.Stage):
 
         def onPlayerMessage(bus, message):
             if message.type == gst.MESSAGE_EOS:
-                if self.app.state.get == "play_intro":
-                    self.app.state.set("play_movie")
-                elif self.app.state.get == "play_movie":
-                    self.app.state.set("start")
+                self.app.state.set("start")
 
         bus = self.video.get_playbin().get_bus()
         bus.add_signal_watch()
@@ -98,15 +95,9 @@ class Stage(stage.Stage):
         self.video.show()
 
 
-    def enter_play_intro(self):
-        self.video.set_size(self.get_width(), self.get_height())
-        self.video.set_uri("file://" + self.app.path("data").child("intro.mov").path)
-        self.video.set_playing(True)
-
-
     def enter_play_movie(self):
         # random movie
-        all = [f for f in glob.glob(self.app.path("data").child("*").path) if os.path.basename(f) != "intro.mov"]
+        all = [f for f in glob.glob(self.app.path("data").child("*").path)]
         f = random.choice(all)
         print "playing", f
         self.video.set_uri("file://" + f)
@@ -138,15 +129,10 @@ class Application (application.Application):
         self.state.setAfter("start", 2)
 
 
-    def enter_play_intro(self):
-        self.machine.playing()
-
-
     def coinInserted(self):
         if self.state.get != "start":
-            print "Huh, not in start?"
             return
-        self.state.set("play_intro")
+        self.state.set("play_movie")
 
 
     def buttonPressed(self):
