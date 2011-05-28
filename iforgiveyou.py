@@ -52,6 +52,7 @@ class Machine(protocol.Protocol):
 
     def playing(self):
         self.transport.write(chr(254)+chr(88))
+        self.transport.write("\n   * THANK YOU! *  ")
 
 
     def accept(self, accept=True):
@@ -121,6 +122,10 @@ class Application (application.Application):
 
     def exit_start(self):
         self.machine.accept(False)
+
+
+    def enter_play_movie(self):
+        self.machine.playing()
 
 
     def enter_sorry(self):
